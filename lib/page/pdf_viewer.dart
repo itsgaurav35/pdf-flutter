@@ -93,10 +93,16 @@ class _PDFViewerState extends State<PDFViewer> {
         //           }
         //         }),
       ]),
+      //for generated pdf files
       body: SfPdfViewer.file(
         widget.file,
         controller: _pdfViewerController,
       ),
+      //for network pdf view
+      // body: SfPdfViewer.network(
+      //   "https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-file.pdf",
+      //   controller: _pdfViewerController,
+      // ),
     );
   }
 }
