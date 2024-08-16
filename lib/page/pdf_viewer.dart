@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutterpdf/api/save_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -16,12 +14,10 @@ class PDFViewer extends StatefulWidget {
 
 class _PDFViewerState extends State<PDFViewer> {
   final PdfViewerController _pdfViewerController = PdfViewerController();
-  Uint8List? _pdfBytes;
 
   @override
   void initState() {
     super.initState();
-    _pdfBytes = widget.file.readAsBytesSync();
   }
 
   Future<void> _saveFile() async {
@@ -31,7 +27,7 @@ class _PDFViewerState extends State<PDFViewer> {
 
         final directory =
             await getExternalStorageDirectory(); // Get the app-specific directory
-        final filePath = '${directory!.path}/Saved.pdf';
+        final filePath = '${directory!.path}/${DateTime.now()}_invoice.pdf';
         final file = File(filePath);
 
         await file.writeAsBytes(bytes);
@@ -44,7 +40,7 @@ class _PDFViewerState extends State<PDFViewer> {
     } catch (e) {
       print("Error saving file: $e");
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Error saving file")));
+          .showSnackBar(const SnackBar(content: Text("Error saving file")));
     }
   }
 
@@ -80,7 +76,7 @@ class _PDFViewerState extends State<PDFViewer> {
         //         );
         //       }
         //     }),
-        //     //for printing the pdf ans saving the PDF
+        //for printing the pdf ans saving the PDF
         //     IconButton(
         //         icon: Icon(Icons.print),
         //         onPressed: () async {
